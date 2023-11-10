@@ -2,9 +2,11 @@ from tempfile import TemporaryFile
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-def generate_samples(n, p, clust, lambda_param, kappa, eta):
+def generate_samples(n, p, eta):
     # Generate p-dimensional mean vector for Pclust
     mu = np.random.normal(loc=0, scale=1, size=p)
+
+    mu = np.sqrt(5.0 / (np.linalg.norm(mu))**2) * mu
     
     # Step 1: Sample clean labels y~ ∈ {±1} uniformly at random
     y_tilde = np.random.choice([-1, 1], size=(n, 1))
@@ -28,17 +30,15 @@ def generate_samples(n, p, clust, lambda_param, kappa, eta):
 np.random.seed(42)
 
 # Example usage:
-n = 100000  # Number of samples
-p = 10   # Number of dimensions
-clust = 1  # Clust parameter for sub-Gaussian norm
-lambda_param = 0.5  # Strong log-concavity parameter
-kappa = 0.1 * p  # Threshold parameter
-eta = 0.1  # Noise rate
+n = 50  # Number of samples
+p = 12000   # Number of dimensions
+# eta = 0.1  # Noise rate
+eta = 0
 
 # Generate n samples of (x, y) pairs with a shared mean vector as a NumPy array
-X_train, X_test, y_train, y_test = generate_samples(n, p, clust, lambda_param, kappa, eta)
+X_train, X_test, y_train, y_test = generate_samples(n, p, eta)
 
 # Print the generated samples
 print("Save generated samples...")
-np.savez('random_samples', X_train, X_test, y_train, y_test)
+np.savez('random_samples_wo_noise', X_train, X_test, y_train, y_test)
 print(X_train)
