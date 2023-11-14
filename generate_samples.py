@@ -20,9 +20,13 @@ def generate_samples(n, p, mu2, eta):
     # Step 4: Introduce noise based on the given noise rate η
     noisy_labels = np.where(np.random.rand(n, 1) < eta, -y_tilde, y_tilde)
 
-    X_train, X_test, y_train, y_test = train_test_split(x_tilde, noisy_labels, test_size=0.1, random_state=42)
+    # X_train, X_test, y_train, y_test = train_test_split(x_tilde, noisy_labels, test_size=0.1, random_state=42)
+    X, y = x_tilde, noisy_labels
+    print(X.shape)
+    print(y.shape)
     
-    return X_train.T, X_test.T, y_train.T, y_test.T
+    # return X_train.T, X_test.T, y_train.T, y_test.T
+    return X, y
 
 np.random.seed(42)
 
@@ -30,13 +34,13 @@ np.random.seed(42)
 n = 10  # Number of samples
 p = 600   # Number of dimensions
 mu2 = 10000.0 # Squared norm of mu
-eta = 0  # Noise rate
+eta = 0.1  # Noise rate
 
 # Generate n samples of (x, y) pairs with a shared mean vector as a NumPy array
-X_train, X_test, y_train, y_test = generate_samples(n, p, mu2, eta)
+X, y = generate_samples(n, p, mu2, eta)
 
 # Print the generated samples
 print("Save generated samples...")
 # np.savez('random_samples_wo_noise', X_train, X_test, y_train, y_test)
-np.savez(f'./generated_samples/{n}_{p}_{mu2}_{eta}', X_train, X_test, y_train, y_test)
+np.savez(f'./generated_samples/{n}_{p}_{mu2}_{eta}', X, y)
 # print(X_train)
