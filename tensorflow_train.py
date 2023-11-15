@@ -32,7 +32,7 @@ def custom_loss(y_true, y_pred):
     return tf.reduce_mean(tf.math.log(1 + tf.math.exp(-y_true*y_pred)))
 
 # The initialization variance for the first layer
-omega_init = 1.0
+omega_init = 3.45267E-14
 
 # Custom weight initializer for the first layer
 def weight_initializer_first_layer(shape, dtype=None):
@@ -48,7 +48,7 @@ def weight_initializer_second_layer(shape, dtype=None):
 # labels = np.random.choice([-1, 1], size=(data_size, 1)).astype(np.float32)
 
 # Bring data from the npz file
-n, p, mu2, eta = 10, 600, 10000.0, 0.1
+n, p, mu2, eta = 100, 80000, 8.0, 0.01
 data = np.load(f'./generated_samples/{n}_{p}_{mu2}_{eta}.npz')
 X, y = data['arr_0'], data['arr_1'].astype(np.float32)
 

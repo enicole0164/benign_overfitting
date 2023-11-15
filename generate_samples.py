@@ -31,9 +31,9 @@ def generate_samples(n, p, mu2, eta):
 np.random.seed(42)
 
 # Example usage:
-n = 10  # Number of samples
-p = 600   # Number of dimensions
-mu2 = 10000.0 # Squared norm of mu
+n = 100  # Number of samples
+p = 102400   # Number of dimensions
+mu2 = 512.0 # Squared norm of mu
 eta = 0.1  # Noise rate
 
 # Generate n samples of (x, y) pairs with a shared mean vector as a NumPy array
