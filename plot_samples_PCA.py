@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 
 def data_visualizer(data, labels, file_name):
+    np.random.seed(42)
     # Perform PCA
     pca = PCA(n_components=2)
     principal_components = pca.fit_transform(data)
